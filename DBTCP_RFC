@@ -3,7 +3,7 @@
 			
 summary:
 	standart port	:
-			  852
+			  8045
 	command format	:
 			  DBTCP [CMD [cmd_args]] [AUTH] [escape sequence]
 	escape sequence	:
