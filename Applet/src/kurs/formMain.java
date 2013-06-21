@@ -16,8 +16,10 @@ public class formMain extends javax.swing.JFrame {
     private void initComponents() {
 
         MenuBar = new javax.swing.JMenu();
-        label_wage = new javax.swing.JLabel();
-        label_expertize_id = new javax.swing.JLabel();
+        combo_persons = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        label_profession = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuOpen = new javax.swing.JMenuItem();
@@ -42,6 +44,16 @@ public class formMain extends javax.swing.JFrame {
                 formComponentShown(evt);
             }
         });
+
+        combo_persons.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo_personsItemStateChanged(evt);
+            }
+        });
+
+        jLabel1.setText("Choose a person");
+
+        jLabel3.setText("Profession");
 
         menuFile.setText("File");
 
@@ -121,20 +133,31 @@ public class formMain extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(combo_persons, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_wage, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_expertize_id, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(704, Short.MAX_VALUE))
+                    .addComponent(label_profession, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(381, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(212, 212, 212)
-                .addComponent(label_wage)
-                .addGap(70, 70, 70)
-                .addComponent(label_expertize_id)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(combo_persons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_profession))
+                .addContainerGap(480, Short.MAX_VALUE))
         );
 
         pack();
@@ -189,6 +212,11 @@ public class formMain extends javax.swing.JFrame {
     private void menuConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConnectActionPerformed
         Globals.global_connection = new dbConn(Globals.FD_database);
         this.setTitle(Globals.FD_database + " Connected=" +Globals.global_connection.get_connection_state());
+        combo_persons.removeAllItems();
+        for(String S:Globals.global_connection.t_людиName_список())
+        {
+            combo_persons.addItem(S);
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_menuConnectActionPerformed
 
@@ -198,6 +226,16 @@ public class formMain extends javax.swing.JFrame {
         fh.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_menuShowHelpActionPerformed
+
+    private void combo_personsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_personsItemStateChanged
+        //заносим в глобальную переменную ID выбранного человека
+        Globals.idCurrentActivePerson = Globals.global_connection.t_людиID_from_t_людиName((String)combo_persons.getSelectedItem());
+        //заносим в шлобальную переменную ID профессии выбранного человека
+        Globals.idCurrentProfession = Globals.global_connection.t_должностьId_from_t_людиID(Globals.idCurrentActivePerson);
+        //метка профессия
+        label_profession.setText(Globals.global_connection.t_должностиName_from_t_должностьID(Globals.idCurrentProfession));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_personsItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -235,11 +273,13 @@ public class formMain extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuBar;
+    private javax.swing.JComboBox combo_persons;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JLabel label_expertize_id;
-    private javax.swing.JLabel label_wage;
+    private javax.swing.JLabel label_profession;
     private javax.swing.JCheckBoxMenuItem menuConnect;
     private javax.swing.JMenuItem menuExit;
     private javax.swing.JMenu menuFile;
