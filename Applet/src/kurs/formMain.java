@@ -1,6 +1,7 @@
 package kurs;
 
 import javax.swing.JFileChooser;
+import javax.xml.bind.JAXBElement;
 
 public class formMain extends javax.swing.JFrame {
 
@@ -20,6 +21,18 @@ public class formMain extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         label_profession = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        label_wage = new javax.swing.JLabel();
+        combo_tasks = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        label_status = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        label_asset = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        combo_expertizes = new javax.swing.JComboBox();
+        label_date = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuOpen = new javax.swing.JMenuItem();
@@ -27,7 +40,6 @@ public class formMain extends javax.swing.JFrame {
         menu_closeConn = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuShowHelp = new javax.swing.JMenuItem();
 
@@ -51,13 +63,37 @@ public class formMain extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Choose a person");
+        jLabel1.setText("Выберите человека");
 
-        jLabel3.setText("Profession");
+        jLabel3.setText("Должность");
 
-        menuFile.setText("File");
+        jLabel4.setText("Ставка по должности");
 
-        menuOpen.setText("Attach Database file");
+        combo_tasks.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo_tasksItemStateChanged(evt);
+            }
+        });
+
+        jLabel2.setText("Выберите дело");
+
+        jLabel5.setText("Статус дела");
+
+        jLabel6.setText("Статья по делу");
+
+        jLabel7.setText("Проведенные экспертизы по делу");
+
+        jLabel8.setText("Дата экспертизы");
+
+        combo_expertizes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo_expertizesItemStateChanged(evt);
+            }
+        });
+
+        menuFile.setText("Файл");
+
+        menuOpen.setText("Открыть файл базы");
         menuOpen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menuOpenMouseClicked(evt);
@@ -71,7 +107,7 @@ public class formMain extends javax.swing.JFrame {
         menuFile.add(menuOpen);
 
         menuConnect.setSelected(true);
-        menuConnect.setText("Open Connection");
+        menuConnect.setText("Открыть соединение");
         menuConnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuConnectActionPerformed(evt);
@@ -79,7 +115,7 @@ public class formMain extends javax.swing.JFrame {
         });
         menuFile.add(menuConnect);
 
-        menu_closeConn.setText("Close Connection");
+        menu_closeConn.setText("Закрыть соединение");
         menu_closeConn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_closeConnActionPerformed(evt);
@@ -87,7 +123,7 @@ public class formMain extends javax.swing.JFrame {
         });
         menuFile.add(menu_closeConn);
 
-        menuExit.setText("Exit Application");
+        menuExit.setText("Выход");
         menuExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuExitActionPerformed(evt);
@@ -97,21 +133,12 @@ public class formMain extends javax.swing.JFrame {
 
         jMenuBar1.add(menuFile);
 
-        jMenu1.setText("Edit Dictionary");
-
-        jMenuItem1.setText("Edit People");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
+        jMenu1.setText("Редактор");
         jMenuBar1.add(jMenu1);
 
-        menuHelp.setText("Help");
+        menuHelp.setText("Помощь");
 
-        menuShowHelp.setText("Show Help");
+        menuShowHelp.setText("О программе");
         menuShowHelp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menuShowHelpMouseClicked(evt);
@@ -133,18 +160,42 @@ public class formMain extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(combo_persons, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_profession, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(381, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(combo_persons, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label_profession, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label_wage, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(combo_tasks, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(label_status, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(label_asset, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combo_expertizes, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label_date, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,12 +203,32 @@ public class formMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(combo_persons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_profession))
-                .addContainerGap(480, Short.MAX_VALUE))
+                    .addComponent(label_profession)
+                    .addComponent(label_wage))
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(combo_tasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_status)
+                    .addComponent(label_asset))
+                .addGap(102, 102, 102)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(combo_expertizes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_date))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,12 +274,6 @@ public class formMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menu_closeConnActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        formEditPeople fep = new formEditPeople();
-        fep.setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void menuConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConnectActionPerformed
         Globals.global_connection = new dbConn(Globals.FD_database);
         this.setTitle(Globals.FD_database + " Connected=" +Globals.global_connection.get_connection_state());
@@ -234,8 +299,61 @@ public class formMain extends javax.swing.JFrame {
         Globals.idCurrentProfession = Globals.global_connection.t_должностьId_from_t_людиID(Globals.idCurrentActivePerson);
         //метка профессия
         label_profession.setText(Globals.global_connection.t_должностиName_from_t_должностьID(Globals.idCurrentProfession));
+        //метка ставка по должности
+        label_wage.setText( String.valueOf(Globals.global_connection.t_должностиID_to_t_должностиСтавка( Globals.idCurrentProfession )) );
+        // комбо , список дел
+        combo_tasks.removeAllItems();
+        //комбо экспертизы
+        combo_expertizes.removeAllItems();
+        for(int IDs:Globals.global_connection.t_экспертизы_from_id_человека(Globals.idCurrentActivePerson))
+        {
+            combo_expertizes.addItem(IDs);
+        }
+        for(int ID:Globals.global_connection.t_людиID_to_t_делаIDs(Globals.idCurrentActivePerson))
+        {
+            combo_tasks.addItem(ID);
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_combo_personsItemStateChanged
+
+    private void combo_tasksItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_tasksItemStateChanged
+        //заносим в глобальную переменную текущий ID дела
+        try
+        {
+            Globals.idCurrentTask = Integer.parseInt(String.valueOf(combo_tasks.getSelectedItem()));
+        }
+        catch(NumberFormatException nfe)
+        {
+            Globals.idCurrentTask = 0;
+        }
+        label_status.setText( Globals.global_connection.t_делаID_to_t_дела_статус(Globals.idCurrentTask) );
+        //глобальная переменная, текущая статья(ID)
+        Globals.idCurrentAsset = Globals.global_connection.t_статьиId_from_t_дело_id( Globals.idCurrentTask );
+        //метка, статья
+        label_asset.setText( Globals.global_connection.t_статьиName_from_t_статьи_id( Globals.idCurrentAsset ) );
+        //комбо экспертизы
+        combo_expertizes.removeAllItems();
+        for(int IDs:Globals.global_connection.t_экспертизы_from_id_человека(Globals.idCurrentActivePerson))
+        {
+            combo_expertizes.addItem(IDs);
+        }
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_tasksItemStateChanged
+
+    private void combo_expertizesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_expertizesItemStateChanged
+        //заносим в глобальную переменную текущую ID экспертизы
+        try
+        {
+            Globals.idCurrentExpertize = Integer.parseInt(String.valueOf(combo_expertizes.getSelectedItem()));
+        }
+        catch(NumberFormatException nfe)
+        {
+            Globals.idCurrentTask = 0;
+        } 
+        label_date.setText( Globals.global_connection.t_экспертизы_дата_from_t_экспертизы_id(Globals.idCurrentExpertize) );
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_expertizesItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -273,13 +391,24 @@ public class formMain extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuBar;
+    private javax.swing.JComboBox combo_expertizes;
     private javax.swing.JComboBox combo_persons;
+    private javax.swing.JComboBox combo_tasks;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JLabel label_asset;
+    private javax.swing.JLabel label_date;
     private javax.swing.JLabel label_profession;
+    private javax.swing.JLabel label_status;
+    private javax.swing.JLabel label_wage;
     private javax.swing.JCheckBoxMenuItem menuConnect;
     private javax.swing.JMenuItem menuExit;
     private javax.swing.JMenu menuFile;

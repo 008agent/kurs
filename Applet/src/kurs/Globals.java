@@ -7,8 +7,10 @@ public class Globals
     public static dbConn global_connection;
     
     public static int    idCurrentActivePerson;
-   public static int    idCurrentProfession;
+    public static int    idCurrentProfession;
+    public static int    idCurrentTask;
+    public static int    idCurrentAsset;
     //public static int    idCurrentAsset;
-    //public static int    idCurrentExpertize;
+    public static int    idCurrentExpertize;
    
 }
