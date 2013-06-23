@@ -49,6 +49,8 @@ public class dbConn
             {
                 throw new SQLException();
             }
+            this.statement.close();
+            this.res_set.close();
             
         }
         catch(SQLException sqlEx)
@@ -190,8 +192,9 @@ public class dbConn
     {
         try
         {
-            PreparedStatement ps = this.connection.prepareStatement("SELECT * FROM t_дела WHERE t_делаID = " + String.valueOf(Idдела));
-            ResultSet         rs = ps.executeQuery();
+            //PreparedStatement ps = this.connection.prepareStatement("SELECT * FROM t_дела WHERE t_делаID = " + String.valueOf(Idдела));
+            Statement ps = this.connection.createStatement();
+            ResultSet         rs = ps.executeQuery("SELECT * FROM t_дела WHERE t_делаID = " + String.valueOf(Idдела));
             String out_tmp = rs.getString("статус");
             ps.close();
             rs.close();
@@ -283,5 +286,64 @@ public class dbConn
              return "na";
         }        
     }
+    
+    /* добавить статью **/
+    public void add_asset(int id,String Name,Double coeff)
+    {
+        Statement s = null;
+        try
+        {
+            s = connection.createStatement();
+            s.execute("INSERT INTO t_статьи(t_статьиID,t_статьиName,t_статьиКоэффициент) VALUES (" + String.valueOf(id) + ",'" + Name + "'," + String.valueOf(coeff) + ")");
+        }
+        catch(SQLException sqlEx)
+        {
+             System.err.println("t_экспертизы_дата_from_t_экспертизы_id " + sqlEx.getMessage());
+        }  
+        finally
+        {
+            try
+            {
+                s.close();
+            }
+            catch(Exception E)
+            {
+                E.printStackTrace();
+            }
+        }
+    }
+    
+    public Double get_count_sallary(int IdP)
+    {
+        Double result = 0.0;
+        Double wage = 0.0;
+        Double coeff = 0.0;
+
+            wage = t_должностиID_to_t_должностиСтавка( t_должностьId_from_t_людиID(IdP) );
+            coeff = get_coeffs_expertizes(IdP);
+            
+            if(wage<0.01) return 0.0;
+            
+            result = wage + wage*coeff;
+            
+            return result;
+
+    }
+    
+    public Double get_coeffs_expertizes(int idP)
+    {
+        Double res = 0.0;
+        
+        //получить список дел,список статей, добавить коэфф
+        for(int T:t_людиID_to_t_делаIDs(idP))
+        {
+            res+=0.3;
+        }
+        //for()
+        
+        return res;
+    }
+    
+    
    // public double  t_людиID
 }
